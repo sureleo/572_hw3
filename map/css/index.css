@@ -18,4 +18,8 @@
   stroke-width: 1.5px;
 }
 
-
+.bubble {
+    fill-opacity: .5;
+    stroke: #fff;
+    stroke-width: .5px;
+}
