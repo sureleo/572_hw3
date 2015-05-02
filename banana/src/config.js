@@ -77,6 +77,7 @@ function (Settings) {
       'bubble',
       'piechar',
       'query2',
+      'stacked',
       'histogram',
       'map',
       'table',

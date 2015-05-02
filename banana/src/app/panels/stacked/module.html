@@ -1,0 +1,36 @@
+
+<div ng-controller="stacked" ng-init="init()">
+    <style>
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: auto;
+      position: relative;
+      width: 960px;
+    }
+
+    text {
+      font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    form {
+      position: absolute;
+      right: 100px;
+      top: 60px;
+    }
+
+    </style>
+    <form>
+      <label><input type="radio" name="mode" value="grouped"> Grouped</label>
+      <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
+    </form>
+    <stacked-chart></stacked-chart>
+    
+</div>
