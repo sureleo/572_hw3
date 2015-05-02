@@ -44,6 +44,7 @@ require.config({
     solrjs:                   '../vendor/solrjs/solr-angular-client',
     d3:                       '../vendor/d3',
     'd3.geo.projection':      '../vendor/d3.geo.projection.v0.min',
+    'd3.tip':                 '../vendor/d3.tip.v0.6.3',
     topojson:                 '../vendor/topojson.v1.min'
   },
   shim: {
@@ -78,6 +79,7 @@ require.config({
     },
 
     // simple dependency declaration
+    'd3.tip':               ['d3'],
     'jquery-ui':            ['jquery'],
     'jquery.flot':          ['jquery'],
     'jquery.flot.pie':      ['jquery', 'jquery.flot'],
