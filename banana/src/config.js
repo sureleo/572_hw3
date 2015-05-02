@@ -74,6 +74,7 @@ function (Settings) {
      */
     panel_names: [
       'bar',
+      'bubble',
       'query2',
       'histogram',
       'map',
