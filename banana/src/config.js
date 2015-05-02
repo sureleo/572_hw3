@@ -75,6 +75,7 @@ function (Settings) {
     panel_names: [
       'bar',
       'bubble',
+      'piechar',
       'query2',
       'histogram',
       'map',

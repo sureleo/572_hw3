@@ -174,12 +174,12 @@ function (angular, app, _, $, d3) {
 
                     var place_json = $.ajax({
                         type: 'GET',
-                        url: './app/panels/query2/full_places.json',
+                        url: './app/panels/query2/high_lat_places.json',
                         dataType: 'json',
                         success: function() {
                             var placesText = place_json.responseText;
                             var places = jQuery.parseJSON(placesText);
-                            var radius = d3.scale.sqrt().domain([0, 1e4]).range([0, 15]);
+                            var radius = d3.scale.sqrt().domain([0, 1e2]).range([0, 15]);
                             loadD3(radius, places);
                         }
                     });
