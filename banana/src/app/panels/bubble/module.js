@@ -134,7 +134,7 @@ function (angular, app, _, $, d3) {
 
   });
 
-    module.directive('barChart', function() {
+    module.directive('bubbleChart', function() {
         return {
             restrict: 'E',
             link: function(scope, element) {
