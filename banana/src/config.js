@@ -74,6 +74,7 @@ function (Settings) {
      */
     panel_names: [
       'bar',
+      'query2',
       'histogram',
       'map',
       'table',

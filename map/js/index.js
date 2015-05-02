@@ -1,11 +1,12 @@
 $(document).on('ready', function(){
+    "use strict";
     var width = 960;
     var height = 960;
     var projection = d3.geo.mercator().scale(
             (width + 1) / 2 / Math.PI
         ).translate(
             [width / 2, height / 2]
-        ).precision(.1);
+        ).precision(0.1);
     var formatNumber = d3.format(",.0f");
 
     var color = d3.scale.category10();
@@ -13,7 +14,7 @@ $(document).on('ready', function(){
 
     var place_json = $.ajax({
         type: 'GET',
-        url: '../json/full_places.json',
+        url: '../map/json/full_places.json',
         dataType: 'json',
         success: function() {
             var places = place_json.responseJSON;
@@ -59,7 +60,7 @@ $(document).on('ready', function(){
             return "translate(" + projection([
               d.coordinate.longitude,
               d.coordinate.latitude
-            ]) + ")"
+            ]) + ")";
         }).attr(
             "r", function(d) {
                 return radius(d.occurrence);
@@ -71,7 +72,7 @@ $(document).on('ready', function(){
         );
 
         //d3 map itself.
-        d3.json("../json/readme-world.json", function(error, world) {
+        d3.json("../map/json/readme-world.json", function(error, world) {
             var countries = topojson.feature(world, world.objects.countries).features;
             var neighbors = topojson.neighbors(world.objects.countries.geometries);
 
