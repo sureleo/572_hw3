@@ -48,11 +48,11 @@ function (angular, app, _, $, d3) {
       */
       queries: {
           mode: 'all',
-          query: '*:*',
+          query: 'land',
           custom: ''
       },
       field: 'attr_height',
-      max_rows: 10,
+      max_rows: 100,
       spyable: true,
       show_queries: true
     };
@@ -99,7 +99,7 @@ function (angular, app, _, $, d3) {
         var rows_limit = '&rows=' + $scope.panel.max_rows;
 
         $scope.panel.queries.query = querySrv.getQuery(0) + fq + fl + wt + rows_limit;
-            console.log( $scope.panel.queries.query );
+        console.log( $scope.panel.queries.query );
 
         // Set the additional custom query
         if ($scope.panel.queries.custom != null) {
@@ -117,26 +117,14 @@ function (angular, app, _, $, d3) {
         */
         // Populate scope when we have results
         results.then(function(results) {
-            $scope.data = {};
-            console.log( results );  
-            var parsedResults = d3.csv.parse(results, function(d) {
-                console.log(d)
-                d[$scope.panel.field] = +d[$scope.panel.field]; // coerce to number
-                return d;
-            });
-            parsedResults = [ 1, 10, 3, 5 ];
-            //$scope.data = _.pluck(parsedResults,$scope.panel.field);
-
-            // !!!This line is important!!
-            $scope.data = [ 1, 10, 3, 5, 7, 9 ];
+            $scope.data = [ ["<=1M",0.52], ["1M-5M", 0.28], ["5M-10M",0.14], ["10M-50M",0.05], [">=50M",0.01] ];
+            //$scope.data = [ 0.52, 0.28, 0.14, 0.05, 0.01 ];
             $scope.render();
         });
 
         // Hide the spinning wheel icon
         $scope.panelMeta.loading = false; 
     };
-
-     $scope.init();
   });
 
     module.directive('barChart', function() {
@@ -166,8 +154,13 @@ function (angular, app, _, $, d3) {
                         width = parent_width - 20,
                         barHeight = height / scope.data.length;
 
+                    var vs = [];
+                    angular.forEach( scope.data, function( k ){
+                      vs.push( k[1] );
+                    } );
+
                     var x = d3.scale.linear()
-                            .domain([0, d3.max(scope.data)])
+                            .domain([0, d3.max(vs)])
                             .range([0, width]);
 
                     var chart = d3.select(element[0]).append('svg')
@@ -176,20 +169,21 @@ function (angular, app, _, $, d3) {
 
                     var bar = chart.selectAll('g')
                                 .data(scope.data)
-                              .enter().append('g')
+                                .enter().append('g')
                                 .attr('transform', function(d,i) {
                                     return 'translate(0,' + i * barHeight + ")";
                                 });
 
                     bar.append('rect')
-                        .attr('width', x)
+                        .attr('width', function(d){ return x(d[1])})
                         .attr('height', barHeight - 1);
 
                     bar.append('text')
-                        .attr('x', function(d) { return x(d) - 3; })
+                        .attr('x', 70 )
                         .attr('y', barHeight / 2)
                         .attr('dy', '.35em')
-                        .text(function(d) { return d; });
+                        .attr('font-color', 'black' )
+                        .text(function(d) { return d[0]+ ": "+ d[1]; });
                 }
             }
         };
